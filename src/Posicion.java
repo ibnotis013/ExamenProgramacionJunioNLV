@@ -1,0 +1,5 @@
+public enum Posicion {
+
+    DELANTERO,DEFENSA,PORTERO,CENTROCAMPISTA
+
+}
