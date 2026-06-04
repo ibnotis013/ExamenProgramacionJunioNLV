@@ -63,13 +63,13 @@ public class Principal {
 
 
     public static void contratarJugador() throws PresupuestoExcedidoException {
-        sc.nextLine();
+        limpiar();
         System.out.println("ingresa el nombre del jugador");
         String nombre = sc.nextLine();
         System.out.println("ingresa el salario del jugador");
         double salario = sc.nextDouble();
         System.out.println("ingresa la posicion del jugador");
-        sc.nextLine();
+        limpiar();
         String posicion = sc.nextLine();
         salarioLimite += salario;
         if (PRESUPUESTO_MAXIMO < salarioLimite) {
@@ -81,13 +81,13 @@ public class Principal {
     }
 
     public static void contratarTecnico() throws PresupuestoExcedidoException {
-        sc.nextLine();
+        limpiar();
         System.out.println("ingresa el nombre del tecnico");
         String nombre = sc.nextLine();
         System.out.println("ingresa el salario del tecnico");
         double salario = sc.nextDouble();
         System.out.println("ingresa el puesto de trabajo del tecnico");
-        sc.nextLine();
+        limpiar();
         String puesto = sc.nextLine();
         salarioLimite += salario;
         if (PRESUPUESTO_MAXIMO < salarioLimite) {
@@ -99,12 +99,15 @@ public class Principal {
     }
 
     public static void eliminarProfesional(ArrayList<Profesional> profesionales) {
-        sc.nextLine();
+        limpiar();
         System.out.println("introduce el nombre del profesional que quieras eliminar");
         String nombre = sc.nextLine();
         for (Profesional profesional : profesionales) {
             if (profesional.getNombre().equals(nombre)) {
                 profesionales.remove(profesional);
+                // aqui da error, al querer eliminar un profesional, si le pasamos el nombre bien, da error por culpa
+                // del bucle, ya que al eliminarlo de la posicion lo que hace es
+                // mover todo una casilla hacia alante entonces explota ya que se queda buscando en la nada.
             } else {
                 throw new ProfesionalNoEncontradoException("El profesional que querias eliminar, no se encuentra en la lista");
             }
@@ -113,7 +116,7 @@ public class Principal {
     }
 
     public static void verNominasTotales(ArrayList<Profesional> profesionales) {
-        sc.nextLine();
+        limpiar();
         double totalGastadoPorClub = 0;
         for (Profesional profesional : profesionales) {
             System.out.println("el profesional de nombre " + profesional.getNombre());
@@ -125,8 +128,13 @@ public class Principal {
                 System.out.println("con puesto de trabajo " + ((Tecnico) profesional).getPuesto());
             }
         }
-        System.out.println("El club esta gastando el total " + totalGastadoPorClub);
+        System.out.println("El club esta gastando el total " + totalGastadoPorClub+"\n" +
+                " ");
     }
 
 
+    public static void limpiar() {
+        sc.nextLine();
+
+    }
 }
